@@ -35,11 +35,11 @@
   <script type="text/babel">
     class HeaderItem extends React.Component{
         render(){
-          return <h2>React, renders me inside container</h2>;
+          return <h2>React, renders me inside {this.props.containerName}</h2>;
         };
     };
     ReactDOM.render(
-      <HeaderItem />, 
+      <HeaderItem containerName="Header"/>, 
       document.querySelector("#container")
     );
   </script>
