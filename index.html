@@ -33,8 +33,13 @@
   <div id="container">
   </div>
   <script type="text/babel">
+    class HeaderItem extends React.Component{
+        render(){
+          return <h2>React, renders me inside container</h2>;
+        };
+    };
     ReactDOM.render(
-      <h2>React, renders me inside container</h2>,
+      <HeaderItem />, 
       document.querySelector("#container")
     );
   </script>
