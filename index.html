@@ -38,8 +38,14 @@
           return <h2>React, renders me inside {this.props.containerName}</h2>;
         };
     };
+    class Buttonify extends React.Component{
+        render(){
+          return <button type="{this.props.behaviour}">{this.props.children}</button>;
+        };
+    };
     ReactDOM.render(
-      <HeaderItem containerName="Header"/>, 
+      // <HeaderItem containerName="Header"/>, 
+      <Buttonify behaviour="radio"> Click! </Buttonify>, 
       document.querySelector("#container")
     );
   </script>
