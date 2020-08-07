@@ -33,8 +33,19 @@
   <div id="container">
   </div>
   <script type="text/babel">
+    class HeaderItem extends React.Component{
+        render(){
+          return <h2>React, renders me inside {this.props.containerName}</h2>;
+        };
+    };
+    class Buttonify extends React.Component{
+        render(){
+          return <button type="{this.props.behaviour}">{this.props.children}</button>;
+        };
+    };
     ReactDOM.render(
-      <h2>React, renders me inside container</h2>,
+      // <HeaderItem containerName="Header"/>, 
+      <Buttonify behaviour="radio"> Click! </Buttonify>, 
       document.querySelector("#container")
     );
   </script>
