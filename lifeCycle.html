@@ -10,6 +10,7 @@
 <style>
     #container {
       padding: 50px;
+      padding: 50px;
       background-color: #FFF;
     }
     h1 {
@@ -27,6 +28,46 @@
   <div id="container"></div>
   
   <script type="text/babel">
+  class SimpleCounterChild extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        count: 0
+      };
+
+      this.timerTick = this.timerTick.bind(this);
+      console.log("Child(👶) constructor!");
+    }
+
+    timerTick() {
+      this.setState((prevState) => {
+        return { 
+          count: prevState.count + 1 
+        };
+      });
+    }
+
+    componentDidMount() {
+      console.log("Child(👶) component has mounted!");
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      console.log(`Child(👶) Component updaate! =>> Previous props: ${prevProps} Previous state: ${prevState}`);
+    }
+
+    componentWillUnmount() {
+      console.log("Child(👶) component is about to be unmounted ");
+    }
+
+
+    render() {
+      console.log("Child(👶) ender call !");
+      
+      return ( <h1><b>Props:</b> {this.props.childCount}</h1>);
+    }
+  }
+
 class SimpleCounter extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +78,7 @@ class SimpleCounter extends React.Component {
 
     this.timerTick = this.timerTick.bind(this);
 
-    console.log("Constructor!");
+    console.log("Parent constructor!");
   }
 
   timerTick() {
@@ -49,23 +90,22 @@ class SimpleCounter extends React.Component {
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.timerTick, 100);
+    this.timer = setInterval(this.timerTick, 5000);
 
-    console.log("Component has mounted!");
+    console.log("Parent component has mounted!");
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("Component updated from: " + prevState.count);
-
+    console.log(`Parent Component updated =>>Previous props: ${prevProps} Previous state: ${prevState}` );
     if (this.state.count == 50) {
       ReactDOM.unmountComponentAtNode(document.querySelector("#container"));
     }
   }
 
   componentWillUnmount() {
-    console.log("Component is about to be unmounted!");
-
+    console.log("Parent Component is about to be unmounted!");
     clearInterval(this.timer);
+    console.log("Parent Component is re-redner!");
     ReactDOM.render(
       <div>
         <SimpleCounter />
@@ -76,10 +116,13 @@ class SimpleCounter extends React.Component {
 
 
   render() {
-    console.log("SimpleCounter render call!");
+    console.log("Parent render call!");
     
     return (
-      <h1>{this.state.count}</h1>
+      <div>
+        <SimpleCounterChild childCount={this.state.count}/>
+        <h1><b>State:</b> {this.state.count}</h1>
+      </div>
     );
   }
 }
