@@ -56,7 +56,24 @@ class SimpleCounter extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     console.log("Component updated from: " + prevState.count);
+
+    if (this.state.count == 50) {
+      ReactDOM.unmountComponentAtNode(document.querySelector("#container"));
+    }
   }
+
+  componentWillUnmount() {
+    console.log("Component is about to be unmounted!");
+
+    clearInterval(this.timer);
+    ReactDOM.render(
+      <div>
+        <SimpleCounter />
+      </div>,
+      document.querySelector("#container")
+    );
+  }
+
 
   render() {
     console.log("SimpleCounter render call!");
